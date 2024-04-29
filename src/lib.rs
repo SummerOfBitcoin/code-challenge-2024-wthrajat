@@ -96,7 +96,7 @@ pub fn mine_bro() {
     let decoded_coinbase = hex::decode(coinbase_in).unwrap();
     valid_wtxid.push(decoded_coinbase);
 
-    for entry in fs::read_dir("../mempool").unwrap() {
+    for entry in fs::read_dir("./mempool").unwrap() {
         let tx: Transaction =
             serde_json::from_str(&fs::read_to_string(entry.unwrap().path()).unwrap()).unwrap();
 
@@ -214,7 +214,7 @@ pub fn mine_bro() {
     blockdata.push(coinbase_transaction);
     blockdata.extend(accepted_txs);
 
-    write_to_output_file(blockdata, "../output.txt").unwrap();
+    write_to_output_file(blockdata, "./output.txt").unwrap();
 }
 
 
@@ -785,7 +785,7 @@ fn check_sig(tx: Transaction) -> bool {
 pub fn pure_p2sh() {
     let mut count = 0;
 
-    for entry in fs::read_dir("../mempool").unwrap() {
+    for entry in fs::read_dir("./mempool").unwrap() {
         let entry = entry.unwrap();
         let tx: Transaction =
             serde_json::from_str(&fs::read_to_string(entry.path()).unwrap()).unwrap();
